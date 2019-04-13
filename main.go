@@ -1,17 +1,30 @@
 package main
 
-import "fyne.io/fyne/app"
-import "fyne.io/fyne/widget"
+import (
+	"flag"
+	"fyne.io/fyne/app"
+)
 
 func main() {
+	// Setup flags
+	fullscreen := flag.Bool("fullscreen", false, "Be fullscreen or not")
+
+	flag.Parse()
+
+	// Build the app
 	a := app.New()
 
-	w := a.NewWindow("Hello")
-	w.SetContent(widget.NewVBox(
-		widget.NewLabel("Hello Fyne!"),
-		widget.NewButton("Quit", func() {
-			a.Quit()
-		})))
+	win := a.NewWindow("ElTeeDee")
 
-	w.ShowAndRun()
+	sysMon := NewSysMon()
+	w := NewWindow(win)
+
+	_ = sysMon
+	_ = w
+
+	if *fullscreen {
+		win.SetFullScreen(true)
+	}
+
+	win.ShowAndRun()
 }
