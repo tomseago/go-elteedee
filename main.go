@@ -2,6 +2,9 @@ package main
 
 import (
 	"flag"
+	"time"
+
+	"fyne.io/fyne"
 	"fyne.io/fyne/app"
 )
 
@@ -22,8 +25,13 @@ func main() {
 	_ = sysMon
 	_ = w
 
+	win.Resize(fyne.Size{480,320})
 	if *fullscreen {
-		win.SetFullScreen(true)
+		k := func() {
+			time.Sleep(1 * time.Second)
+			win.SetFullScreen(true)
+		}
+		go k()
 	}
 
 	win.ShowAndRun()
